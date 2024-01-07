@@ -18,7 +18,7 @@ const CalendarWithButtons = () => {
       {isCalendarClicked && (
         <div className="flex flex-col space-y-4">
           {times.map(time => (
-            <Button key={time} width="100%">
+            <Button key={time}>
               {time}:00 - {time + 1}:00
             </Button>
           ))}
