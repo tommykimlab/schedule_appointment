@@ -1,18 +1,8 @@
 'use client'
 import { Calendar } from "@/components/ui/calendar"
 import React, { useState , useEffect} from 'react';
-import { Button } from "@/components/ui/button"
-import { createClient } from '@supabase/supabase-js'
-import test from "node:test";
-
-const supabaseUrl = 'https://qclwyzaygotfcqbrhlyd.supabase.co'
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY
-
-if (!supabaseKey) {
-  throw new Error("Missing SUPABASE_KEY environment variable")
-}
-
-const supabase = createClient(supabaseUrl, supabaseKey)
+import { Button } from "@/components/ui/button";
+import { getRange } from "@/components/CallSupabase";
 
 function CalendarWithButtons() {
   const [isCalendarClicked, setCalendarClicked] = useState(false);
@@ -21,36 +11,29 @@ function CalendarWithButtons() {
     setCalendarClicked(true);
   };
 
-  const times = Array.from({ length: 10 }, (_, i) => 9 + i); // generates hours from 9 to 18
-  const [test, setTest] = useState([])
+  const generateTimes = () => Array.from({ length: 10 }, (_, i) => 9 + i); // generates hours from 9 to 18
+  const times = generateTimes();
+  const range = getRange();
 
-  useEffect(() => {
-    const fetchAppointments = async () => {
-      let { data: test, error} = await supabase
-        .from('available_date')
-        .select('*')
-      
-        setTest(test)
-    }
-    
-    fetchAppointments()
-  }, [])
 
-  const available_date = test
-  console.log(available_date)
+  const renderCalendar = () => (
+    <Calendar mode='single' className="rounded-md border" selected={range}/>
+  );
+
+  const renderButtons = () => (
+    <div className="flex flex-col space-y-4">
+      {times.map(time => (
+        <Button key={time}>
+          {time}:00 - {time + 1}:00
+        </Button>
+      ))}
+    </div>
+  );
 
   return (
     <div onClick={handleCalendarClick}>
-      {!isCalendarClicked && <Calendar mode='single' className="rounded-md border" selected={[new Date('2024-01-09'), new Date('2024-01-10')]}/>}
-      {isCalendarClicked && (
-        <div className="flex flex-col space-y-4">
-          {times.map(time => (
-            <Button key={time}>
-              {time}:00 - {time + 1}:00
-            </Button>
-          ))}
-        </div>
-      )}
+      {!isCalendarClicked && renderCalendar()}
+      {isCalendarClicked && renderButtons()}
     </div>
   );
 }
