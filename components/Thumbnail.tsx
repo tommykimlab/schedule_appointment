@@ -11,7 +11,7 @@ export function Thumbnail() {
       <ContextMenu>
         <ContextMenuTrigger>
           <div className="overflow-hidden rounded-md relative"> {/* Add relative here */}
-            <Image src="https://images.unsplash.com/photo-1611348586804-61bf6c080437?w=300&dpr=2&q=80" alt="test" width={300} height={200} />
+            <Image src="/thumbnails/golf1.jpeg" alt="test" width={500} height={500} className="rounded-xl"/>
             <div className="absolute top-0 right-0 p-3 w-300">
               <HeartIcon width={22} height={22} className="text-white" fill="black" stroke="white" strokeWidth={0.2} strokeOpacity={1}/>
             </div>
