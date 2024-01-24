@@ -17,6 +17,7 @@ export default function Home() {
         {[...Array(10)].map((_, i) => (
           <div key={i} className="flex justify-center items-center w-full space-x-4">
             <Thumbnail />
+            <Thumbnail />
           </div>
         ))}
       </main>
