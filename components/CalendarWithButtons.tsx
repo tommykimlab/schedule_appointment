@@ -17,7 +17,7 @@ function CalendarWithButtons() {
 
 
   const renderCalendar = () => (
-    <Calendar mode='single' className="rounded-md border" selected={range}/>
+    <Calendar mode='multiple' className="rounded-md border" selected={range}/>
   );
 
   const renderButtons = () => (

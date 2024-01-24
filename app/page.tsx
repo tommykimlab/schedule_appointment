@@ -1,17 +1,28 @@
-import Image from 'next/image'
-import { Calendar } from "@/components/ui/calendar"
 import React, { useState } from 'react';
-import CalendarWithButtons from '@/components/CalendarWithButtons';
-
+import { Thumbnail } from '@/components/Thumbnail';
+import { BottomNavigation } from '@/components/BottomNavigation';
+import { SearchBar } from '@/components/SearchBar';
+import ServerTest from '@/components/ServerTest';
+import { Chat } from '@/components/Chat';
+ 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center p-12">
-      <h2 className="text-sm font-bold mb-4 text-gray-500">Tommy Kim</h2>
-      <h1 className="text-2xl font-bold mb-4">Python 1:1 Lesson</h1>
-      <hr className="w-full border-t-2 border-gray-300 my-4" />
-      <h3 className="text-xl font-bold mb-4">Select Day</h3>
-      <CalendarWithButtons />
-
-    </main>
+    <div className="flex flex-col h-screen justify-between">
+      <header className="flex justify-center items-center p-3 w-full">
+        <SearchBar />
+      </header>
+      <main className="flex flex-wrap min-h-screen items-center p-3 mb-auto">
+        <Chat />
+        <ServerTest />
+        {[...Array(10)].map((_, i) => (
+          <div key={i} className="flex justify-center items-center w-full space-x-4">
+            <Thumbnail />
+          </div>
+        ))}
+      </main>
+      <div className="fixed bottom-0 left-0 z-50 w-full h-16 bg-white">
+        <BottomNavigation />
+      </div>
+    </div>
   )
 }
